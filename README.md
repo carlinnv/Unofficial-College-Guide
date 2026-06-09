@@ -183,3 +183,6 @@ The spec described retrieval as simply "top-k = 4, cosine similarity," but the i
 - *What I gave the AI:* The Architecture diagram and Evaluation Plan, plus my grounding requirements: answers must come only from retrieved context with source attribution, the output should be an answer plus a source list, and I wanted a Gradio interface.
 - *What it produced:* `main.py`, which retrieves the top-4 chunks, sends them to a Groq LLM (llama-3.3-70b-versatile) with a grounding system prompt, and returns the answer with a source list, exposed through both a CLI and a Gradio app.
 - *What I changed or overrode:* I directed it to make grounding *structural* rather than just a prompt request — adding the relevance gate that refuses without calling the LLM, and building the source list in code from metadata so attribution can't be dropped by the model. I also overrode the citation format to `[Source Name, URL]` so citations are readable inline. Testing against my Evaluation Plan is what surfaced the CS 288 chunking failure documented above.
+
+## Demo Video
+[![Demo Video](https://www.loom.com/share/03f69c5ef3a042a882ead97c7930add9)](https://www.loom.com/share/03f69c5ef3a042a882ead97c7930add9)
