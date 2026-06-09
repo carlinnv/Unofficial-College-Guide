@@ -111,13 +111,13 @@ flowchart LR
      A[Document Ingestion\nPython + requests / BeautifulSoup / pdfplumber] --> B[Chunking\nCustom splitter\n600 chars + 100 overlap]
      B --> C[Embedding + Vector Store\nsentence-transformers\nall-MiniLM-L6-v2 + ChromaDB]
      C --> D[Retrieval\nTop-k = 4\ncosine similarity]
-     D --> E[Generation\nGroq LLM\nanswer with retrieved context]
+     D --> E[Generation\nGroq LLM\nanswer with the context retrieved]
 
      A1[(Reddit threads)] --> A
      A2[(NJIT catalog pages)] --> A
      A3[(PDF schedule)] --> A
 
-     E --> F[Response with source-backed answer]
+     E --> F[Give a source-backed response]
 ```
 
 ---
@@ -136,6 +136,12 @@ flowchart LR
 
 **Milestone 3 — Ingestion and chunking:**
 
+I will use **Copilot** for the ingestion and chunking code. I will give it the `Documents` section, the `Chunking Strategy` section, and the requirement that the pipeline needs to handle Reddit threads, NJIT catalog pages, and the other websites I have included. I will ask it to generate code that fetches HTML, cleans the documents, and splits them into 600-character chunks with 100 characters of overlap. Then, I will test it on a few sample sources and make sure the chunks keep headings, course numbers, and reply context intact.
+
 **Milestone 4 — Embedding and retrieval:**
 
+I will use **Claude** for the embedding and retrieval pipeline. I will give it the `Retrieval Approach` section, the `Architecture` diagram, and the requirement to use `sentence-transformers`, `all-MiniLM-L6-v2`, and `ChromaDB`. I expect that it will build the embedding step, store vectors in ChromaDB, and retrieve the top 4 matches in terms of cosine similarity. I will check a few questions from my `Evaluation Plan` and confirm that the retrieved chunks come from the right sources and mention the right course or professor.
+
 **Milestone 5 — Generation and interface:**
+
+I will use **Claude** again for the response-generation and interface layer. I will give it the `Architecture` diagram, the `Evaluation Plan`, and the requirement that the final answer should be accurate to the retrieved chunks. I expect it to produce a prompt template for the LLM, a response formatter with source-backed answers, and a simple interface for testing queries. I will verify it by making sure the answers stay within the retrieved context, include sources when possible, and answer the five test questions without adding unsupported details.
